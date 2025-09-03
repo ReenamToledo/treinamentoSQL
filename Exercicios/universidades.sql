@@ -1,0 +1,73 @@
+CREATE DATABASE Universidade;
+USE Universidade;
+
+CREATE TABLE Alunos(
+    MATRICULA INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL 
+);
+
+CREATE TABLE Disciplinas(
+    COD_DISC VARCHAR(10) PRIMARY KEY,
+    nome_disc VARCHAR(50) NOT NULL,
+    carga_hor INT NOT NULL
+);
+
+CREATE TABLE Professores(
+    COD_PROF INT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    endereco VARCHAR(50) NOT NULL,
+    cidade VARCHAR(50) NOT NULL 
+);
+
+CREATE TABLE Turma(
+    COD_TURMA INT PRIMARY KEY,
+    codigo_disciplina VARCHAR(10) NOT NULL,
+    codigo_professor INT NOT NULL,
+    ANO YEAR NOT NULL,
+    horario VARCHAR(20),
+    FOREIGN KEY (codigo_disciplina) REFERENCES Disciplinas(COD_DISC),
+    FOREIGN KEY (codigo_professor) REFERENCES Professores(COD_PROF)
+);
+
+CREATE TABLE Historico(
+	COD_HISTORICO INT PRIMARY KEY,
+    matricula INT NOT NULL,
+    codigo_disciplina VARCHAR(10) NOT NULL,
+    codigo_turma INT NOT NULL,
+    codigo_professor INT NOT NULL,
+    ANO YEAR NOT NULL,
+    frequencia INT NOT NULL,
+    nota INT NOT NULL,
+    FOREIGN KEY (matricula) REFERENCES Alunos(MATRICULA),
+    FOREIGN KEY (codigo_disciplina) REFERENCES Disciplinas(COD_DISC),
+    FOREIGN KEY (codigo_turma) REFERENCES Turma(COD_TURMA),
+    FOREIGN KEY (codigo_professor) REFERENCES Professores(COD_PROF)
+);
+
+INSERT INTO Alunos(MATRICULA, nome, endereco, cidade)
+VALUES (2015010101, "JOSE DE ALENCAR", "RUA DAS ALMAS", "NATAL"),
+(2015010102, "JOÃO JOSÉ", "AVENIDA RUY CARNEIRO", "JOÃO PESSOA"),
+(2015010103, "MARIA JOAQUINA", "RUA CARROSSEL", "RECIFE"),
+(2015010104, " MARIA DAS DORES", "RUA DAS LADEIRAS", "FORTALEZA"),
+(2015010105, "JOSUÉ CLAUDINO DOS SANTOS", "CENTRO", "NATAL"),
+(2015010106, "JOSUÉLISSON CLAUDINO DOS SANTOS", "CENTRO", "NATAL");
+
+INSERT INTO Disciplinas(COD_DISC, nome_disc, carga_hor)
+VALUES ("BD", "BANCO DE DADOS", 100),
+("POO", "PROGRAMAÇÃO COM ACESSO A BANCO DE DADOS", 100),
+("WEB", "AUTORIA WEB", 50),
+("ENG", "ENGENHARIA DE SOFTWARE", 80);
+
+INSERT INTO Professores(COD_PROF, nome, endereco, cidade)
+VALUES (212131, "NICKERSON FERREIRA", "RUA MANAÍRA", "JOÃO PESSOA"),
+(122135, "ADORILSON BEZERRA", "AVENIDA SALGADO FILHO", "NATAL"),
+(192011, "DIEGO OLIVEIRA", "AVENIDA ROBERTO FREIRE", "NATAL");
+
+INSERT INTO Turma(codigo_disciplina, COD_TURMA, codigo_professor, ANO, horario)
+VALUES ("BD", 1, 212131, 2015, "11H-12H"),
+("BD", 2, 212131, 2015, "13H-14H"),
+("POO", 1, 192011, 2015, "08H-09H"),
+("WEB", 1, 192011, 2015, "07H-08H"),
+("ENG", 1, 122135, 2015, "10H-11H");
