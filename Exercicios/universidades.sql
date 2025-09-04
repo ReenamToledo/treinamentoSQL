@@ -22,28 +22,27 @@ CREATE TABLE Professores(
 );
 
 CREATE TABLE Turma(
-    COD_TURMA INT PRIMARY KEY,
+    COD_TURMA INT NOT NULL,
     codigo_disciplina VARCHAR(10) NOT NULL,
     codigo_professor INT NOT NULL,
-    ANO YEAR NOT NULL,
+    ano YEAR NOT NULL,
     horario VARCHAR(20),
+    PRIMARY KEY (codigo_disciplina, COD_TURMA, codigo_professor, ano),
     FOREIGN KEY (codigo_disciplina) REFERENCES Disciplinas(COD_DISC),
     FOREIGN KEY (codigo_professor) REFERENCES Professores(COD_PROF)
 );
 
 CREATE TABLE Historico(
-	COD_HISTORICO INT PRIMARY KEY,
     matricula INT NOT NULL,
     codigo_disciplina VARCHAR(10) NOT NULL,
     codigo_turma INT NOT NULL,
     codigo_professor INT NOT NULL,
-    ANO YEAR NOT NULL,
+    ano YEAR NOT NULL,
     frequencia INT NOT NULL,
     nota INT NOT NULL,
+    PRIMARY KEY (matricula, codigo_disciplina, codigo_turma, codigo_professor, ano),
     FOREIGN KEY (matricula) REFERENCES Alunos(MATRICULA),
-    FOREIGN KEY (codigo_disciplina) REFERENCES Disciplinas(COD_DISC),
-    FOREIGN KEY (codigo_turma) REFERENCES Turma(COD_TURMA),
-    FOREIGN KEY (codigo_professor) REFERENCES Professores(COD_PROF)
+	FOREIGN KEY (codigo_disciplina, codigo_turma, codigo_professor, ano) REFERENCES Turma(codigo_disciplina, COD_TURMA, codigo_professor, ano)
 );
 
 INSERT INTO Alunos(MATRICULA, nome, endereco, cidade)
