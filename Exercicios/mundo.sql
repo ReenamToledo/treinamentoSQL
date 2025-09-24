@@ -53,12 +53,12 @@ SELECT Cidade.nome AS Cidade, Pais.Nome AS Pais
 FROM Cidade
 LEFT JOIN Pais ON Cidade.pais = pais.nome;
 
-/*Liste todas as cidades que são capitais. */
+/*2. Liste todas as cidades que são capitais. */
 SELECT Cidade.nome, cidade.capital FROM Cidade
 LEFT JOIN Pais ON Cidade.pais = pais.nome
 WHERE Cidade.capital = 'S';
 
-/*Liste todos os atributos dos países onde a expectativa de vida é menor 
+/*3. Liste todos os atributos dos países onde a expectativa de vida é menor 
 que 70 anos */
 SELECT Pais.*, Cidade.nome AS Cidade
 FROM Pais
